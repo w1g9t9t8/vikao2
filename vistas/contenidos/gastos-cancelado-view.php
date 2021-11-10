@@ -1,0 +1,54 @@
+
+<div class="full-box page-header">
+    <h3 class="text-left">
+        <i class="fas fa-plus fa-fw"></i> &nbsp; LISTA DE CANCELADOS
+    </h3>
+
+</div>
+
+<div class="container-fluid">
+    <ul class="full-box list-unstyled page-nav-tabs">
+        <li>
+            <a  href="<?php echo SERVERURL; ?>gastos-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR GASTO</a>
+        </li>
+        <li>
+            <a  href="<?php echo SERVERURL; ?>gastos-gastos/"><i class="far fa-calendar-alt"></i> &nbsp; GASTOS</a>
+        </li>
+        <li>
+            <a class="active" href="<?php echo SERVERURL; ?>gastos-cancelado/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; CANCELADOS</a>
+        </li>
+        <li>
+            <a href="<?php echo SERVERURL; ?>gastos-buscar/"><i class="fas fa-search-dollar fa-fw"></i> &nbsp; BUSQUEDA</a>
+        </li>
+
+    </ul>
+</div>
+<div class="container-fluid">
+    <div class="container-fluid">
+            <div class="row justify-content-md-center">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="inputSearch" class="bmd-label-floating">¿Ingresa el término de busqueda?</label>
+                        <input type="text" class="form-control" name="busqueda_inicial" id="inputSearch" maxlength="30">
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php 
+        require_once "./controladores/gastoControlador.php";
+        $ins_gasto= new gastoControlador();
+
+        echo $ins_gasto->paginador_gasto_controlador($pagina[1],15,$_SESSION['privilegio_spm'],$pagina[0],"Cancelado","","");
+    ?>                
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#inputSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
